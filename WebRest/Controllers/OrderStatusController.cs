@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,47 +12,47 @@ namespace WebRest.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GendersController : ControllerBase, iController<Gender>
+    public class OrderStatusController : ControllerBase, iController<OrderStatus>
     {
         private readonly WebRestOracleContext _context;
 
-        public GendersController(WebRestOracleContext context)
+        public OrderStatusController(WebRestOracleContext context)
         {
             _context = context;
         }
 
-        // GET: api/Genders
+        // GET: api/OrderStatus
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Gender>>> Get()
+        public async Task<ActionResult<IEnumerable<OrderStatus>>> Get()
         {
-            return await _context.Genders.ToListAsync();
+            return await _context.OrderStatuses.ToListAsync();
         }
 
-        // GET: api/Genders/5
+        // GET: api/OrderStatuses/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Gender>> Get(string id)
+        public async Task<ActionResult<OrderStatus>> Get(string id)
         {
-            var gender = await _context.Genders.FindAsync(id);
+            var orderStatus = await _context.OrderStatuses.FindAsync(id);
 
-            if (gender == null)
+            if (orderStatus == null)
             {
                 return NotFound();
             }
 
-            return gender;
+            return orderStatus;
         }
 
-        // PUT: api/Genders/5
+        // PUT: api/OrderStatuses/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(string id, Gender gender)
+        public async Task<IActionResult> Put(string id, OrderStatus orderStatus)
         {
-            if (id != gender.GenderId)
+            if (id != orderStatus.OrderStatusId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(gender).State = EntityState.Modified;
+            _context.Entry(orderStatus).State = EntityState.Modified;
 
             try
             {
@@ -73,28 +73,28 @@ namespace WebRest.Controllers
             return NoContent();
         }
 
-        // POST: api/Genders
+        // POST: api/OrderStatuses
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Gender>> Post(Gender gender)
+        public async Task<ActionResult<OrderStatus>> Post(OrderStatus orderStatus)
         {
-            _context.Genders.Add(gender);
+            _context.OrderStatuses.Add(orderStatus);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGender", new { id = gender.GenderId }, gender);
+            return CreatedAtAction("GetOrderStatus", new { id = orderStatus.OrderStatusId }, orderStatus);
         }
 
-        // DELETE: api/Genders/5
+        // DELETE: api/OrderStatuses/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
-            var gender = await _context.Genders.FindAsync(id);
-            if (gender == null)
+            var orderStatus = await _context.OrderStatuses.FindAsync(id);
+            if (orderStatus == null)
             {
                 return NotFound();
             }
 
-            _context.Genders.Remove(gender);
+            _context.OrderStatuses.Remove(orderStatus);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -102,7 +102,7 @@ namespace WebRest.Controllers
 
         private bool Exists(string id)
         {
-            return _context.Genders.Any(e => e.GenderId == id);
+            return _context.OrderStatuses.Any(e => e.OrderStatusId == id);
         }
     }
 }
